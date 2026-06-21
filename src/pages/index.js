@@ -1,6 +1,6 @@
 import HomePage from "./HomePage";
 import Working from "./Working";
-import GetStarted from "./Getstarted";
+import GetStarted from "./GetStarted";
 import About from "./About";
 
 export{
