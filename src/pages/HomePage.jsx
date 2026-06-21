@@ -26,12 +26,12 @@ function HomePage() {
               A high-performance, developer-first platform providing robust APIs for Sudoku and traditional games. Generate matrices, validate solutions, and power your apps instantly.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-              <a href="#docs" className="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-3 rounded-xl font-semibold text-center transition shadow-xl shadow-indigo-600/30">
+              <NavLink to="/docs" className="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-3 rounded-xl font-semibold text-center transition shadow-xl shadow-indigo-600/30">
                 Read the Docs
-              </a>
-              <a href="#endpoints" className="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-6 py-3 rounded-xl font-semibold text-center transition">
-                Explore Endpoints
-              </a>
+              </NavLink>
+              <NavLink to="/working-demo" className="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-6 py-3 rounded-xl font-semibold text-center transition">
+                Working Demo
+              </NavLink>
             </div>
           </div>
 
