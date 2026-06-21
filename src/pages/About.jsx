@@ -52,26 +52,29 @@ function About() {
         </div>
 
         {/* Support & Donations Section */}
-        <div className="bg-gradient-to-br from-slate-800/60 to-indigo-950/30 border border-slate-700/50 rounded-2xl p-6 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="space-y-2 max-w-xl text-left">
-            <h3 className="text-lg font-bold text-white">☕ Support Engine Hosting Costs</h3>
-            <p className="text-slate-300 text-xs md:text-sm leading-relaxed">
-              Running active JVM runtime instances on global cloud infrastructures requires persistent server resources. 
-              If you are using our dynamic grid engines or want to support development under our microservice hub, 
-              consider helping fund the compute nodes!
-            </p>
-          </div>
-          
-          <a 
-            href="https://buymeacoffee.com" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="w-full md:w-auto px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 font-bold rounded-xl shadow-lg transition duration-200 text-center whitespace-nowrap active:scale-95 text-sm tracking-wide flex items-center justify-center gap-2"
-          >
-            💖 Fuel API Nodes
-          </a>
+       <div className="bg-gradient-to-br from-slate-800/60 to-indigo-950/30 border border-slate-700/50 rounded-2xl p-6 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="space-y-2 max-w-xl text-left">
+          <h3 className="text-lg font-bold text-white">☕ Support Engine Hosting Costs</h3>
+          <p className="text-slate-300 text-xs md:text-sm leading-relaxed">
+            Running active JVM runtime instances on global cloud infrastructures requires persistent server resources. 
+            If you are using our dynamic grid engines or want to support development under our microservice hub, 
+            consider helping fund the compute nodes!
+          </p>
         </div>
-
+        
+        {/* Plain text block styled to look clean and minimal right on the page */}
+        <div className="w-full md:w-auto bg-slate-950/80 border border-slate-800 px-6 py-4 rounded-xl text-center md:text-left shadow-inner">
+          <span className="block text-[11px] font-semibold text-indigo-400 uppercase tracking-wider mb-1">
+            📱 Google Pay / UPI
+          </span>
+          <span className="font-mono text-sm text-slate-200 font-bold select-all">
+            gyanesh5009-1@oksbi
+          </span>
+          <span className="block text-[10px] text-slate-400 mt-1">
+            Copy and paste in any UPI app
+          </span>
+        </div>
+      </div>
       </div>
     </div>
   )
