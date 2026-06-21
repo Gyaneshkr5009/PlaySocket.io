@@ -26,6 +26,9 @@ function About() {
             <a href="https://vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-200">
               ↗ Portfolio v3
             </a>
+            <a href="https://github.com/Gyaneshkr5009" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-200">
+              ↗ Github
+            </a>
           </div>
         </div>
 
