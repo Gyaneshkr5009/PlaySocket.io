@@ -8,13 +8,25 @@ function About() {
       <div className="max-w-4xl mt-4 mx-auto space-y-12">
         
         {/* Header Section */}
-        <div className="border-b border-slate-800 pb-6">
-          <h1 className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">
-            About Me & Project Vision
-          </h1>
-          <p className="text-slate-400 text-sm mt-2">
-            Building highly concurrent, type-safe gaming microservices with Spring Boot.
+        <div className="border-b border-slate-800 pb-6 space-y-4">
+          <div>
+            <h1 className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">
+              About Me & Project Vision
+            </h1>
+            <p className="text-slate-400 text-sm mt-2">
+              Building highly concurrent, type-safe gaming microservices with Spring Boot.
           </p>
+          </div>
+
+          {/* Minimal Links Bar */}
+          <div className="flex flex-wrap gap-5 text-xs font-mono text-slate-400 pt-2">
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-200">
+              ↗ LinkedIn
+            </a>
+            <a href="https://vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-200">
+              ↗ Portfolio v3
+            </a>
+          </div>
         </div>
 
         {/* Recruiter / Professional Pitch Section */}
@@ -52,29 +64,29 @@ function About() {
         </div>
 
         {/* Support & Donations Section */}
-       <div className="bg-gradient-to-br from-slate-800/60 to-indigo-950/30 border border-slate-700/50 rounded-2xl p-6 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="space-y-2 max-w-xl text-left">
-          <h3 className="text-lg font-bold text-white">☕ Support Engine Hosting Costs</h3>
-          <p className="text-slate-300 text-xs md:text-sm leading-relaxed">
-            Running active JVM runtime instances on global cloud infrastructures requires persistent server resources. 
-            If you are using our dynamic grid engines or want to support development under our microservice hub, 
-            consider helping fund the compute nodes!
-          </p>
+        <div className="bg-gradient-to-br from-slate-800/60 to-indigo-950/30 border border-slate-700/50 rounded-2xl p-6 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="space-y-2 max-w-xl text-left">
+            <h3 className="text-lg font-bold text-white">☕ Support Engine Hosting Costs</h3>
+            <p className="text-slate-300 text-xs md:text-sm leading-relaxed">
+              Running active JVM runtime instances on global cloud infrastructures requires persistent server resources. 
+              If you are using our dynamic grid engines or want to support development under our microservice hub, 
+              consider helping fund the compute nodes!
+            </p>
+          </div>
+          
+          {/* Plain text block styled to look clean and minimal right on the page */}
+          <div className="w-full md:w-auto bg-slate-950/80 border border-slate-800 px-6 py-4 rounded-xl text-center md:text-left shadow-inner">
+            <span className="block text-[11px] font-semibold text-indigo-400 uppercase tracking-wider mb-1">
+              📱 Google Pay / UPI
+            </span>
+            <span className="font-mono text-sm text-slate-200 font-bold select-all">
+              gyanesh5009-1@oksbi
+            </span>
+            <span className="block text-[10px] text-slate-400 mt-1">
+              Copy and paste in any UPI app
+            </span>
+          </div>
         </div>
-        
-        {/* Plain text block styled to look clean and minimal right on the page */}
-        <div className="w-full md:w-auto bg-slate-950/80 border border-slate-800 px-6 py-4 rounded-xl text-center md:text-left shadow-inner">
-          <span className="block text-[11px] font-semibold text-indigo-400 uppercase tracking-wider mb-1">
-            📱 Google Pay / UPI
-          </span>
-          <span className="font-mono text-sm text-slate-200 font-bold select-all">
-            gyanesh5009-1@oksbi
-          </span>
-          <span className="block text-[10px] text-slate-400 mt-1">
-            Copy and paste in any UPI app
-          </span>
-        </div>
-      </div>
       </div>
     </div>
   )
