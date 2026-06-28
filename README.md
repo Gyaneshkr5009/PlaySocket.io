@@ -1,173 +1,279 @@
-# 🧩 PlaySocket API
+# 🧩 PlaySocket
 
-> Generate highly customizable Sudoku puzzles through a powerful GraphQL API.
+<p align="center">
+  <strong>A high-performance Sudoku Generation Engine built with Spring Boot & GraphQL.</strong>
+</p>
 
-PlaySocket is a Spring Boot powered Sudoku Engine that allows developers to generate Sudoku boards of multiple sizes with configurable difficulty levels.
+<p align="center">
+Generate fully configurable Sudoku puzzles with multiple board sizes, dynamic difficulty levels, verified solutions, and developer-friendly APIs.
+</p>
 
-Designed for game developers, educational platforms and puzzle applications.
+<p align="center">
 
----
+![Java](https://img.shields.io/badge/Java-17-orange)
+![Spring Boot](https://img.shields.io/badge/SpringBoot-3.x-brightgreen)
+![GraphQL](https://img.shields.io/badge/GraphQL-API-E10098)
+![License](https://img.shields.io/badge/License-MIT-blue)
+![Status](https://img.shields.io/badge/Status-Active-success)
 
-## ✨ Features
-
-- 🚀 GraphQL API
-- 🧩 Multiple board sizes
-  - 4×4
-  - 6×6
-  - 9×9
-  - 10×10
-  - 12×12
-  - 16×16
-
-- 🎯 Difficulty Levels
-  - Easy
-  - Medium
-  - Hard
-
-- ✅ Verified Solutions
-
-- ⚡ High Performance Puzzle Generation
-
-- 🌐 REST Endpoint Support
-
-- 📄 Developer Friendly Documentation
+</p>
 
 ---
 
-## 📸 Documentation
+# ✨ Why PlaySocket?
 
-Developer Documentation
+Most Sudoku APIs only generate a fixed 9×9 board.
 
-https://playsocket.netlify.app/
+PlaySocket was designed to be **a configurable Sudoku engine**, giving developers complete control over:
+
+* Board Size
+* Difficulty
+* Puzzle Generation
+* Verified Solutions
+* GraphQL Integration
+
+Whether you're building a mobile game, educational platform, puzzle website, or AI application, PlaySocket provides a simple yet powerful API for Sudoku generation.
 
 ---
 
-## API Endpoint
+# 🚀 Features
 
+| Feature                        | Supported |
+| ------------------------------ | --------- |
+| GraphQL API                    | ✅         |
+| Spring Boot Backend            | ✅         |
+| Multiple Board Sizes           | ✅         |
+| Dynamic Difficulty             | ✅         |
+| Verified Solutions             | ✅         |
+| REST Endpoint                  | ✅         |
+| Developer Documentation        | ✅         |
+| Ready for Frontend Integration | ✅         |
+
+---
+
+# Supported Board Sizes
+
+| Size  | Status |
+| ----- | ------ |
+| 4×4   | ✅      |
+| 6×6   | ✅      |
+| 9×9   | ✅      |
+| 10×10 | ✅      |
+| 12×12 | ✅      |
+| 16×16 | ✅      |
+
+---
+
+# Difficulty Levels
+
+| Difficulty |
+| ---------- |
+| EASY       |
+| MEDIUM     |
+| HARD       |
+
+---
+
+# API Endpoint
+
+```http
+POST https://vebble-ai-backend.onrender.com/api/games/sudoku-app
 ```
-POST
-https://vebble-ai-backend.onrender.com/api/games/sudoku-app
-```
 
 ---
 
-## GraphQL Example
+# GraphQL Query
 
 ```graphql
 query GetSudoku {
 
-    newboard(
-        limit:1,
-        difficulty:"MEDIUM",
-        size:9
-    ){
+  newboard(
+      limit:1,
+      difficulty:"MEDIUM",
+      size:9
+  ){
 
-        grids{
+      grids{
 
-            value
-            solution
-            difficulty
+          value
+          solution
+          difficulty
 
-        }
+      }
 
-        results
-        message
+      results
+      message
 
-    }
+  }
 
 }
 ```
 
 ---
 
-## Response
+# Example Response
 
 ```json
 {
-  "data": {
-
-      ...
-
-  }
+    "data": {
+        "newboard": {
+            "grids": [
+                {
+                    "value": "...",
+                    "solution": "...",
+                    "difficulty": "MEDIUM"
+                }
+            ],
+            "results": 1,
+            "message": "Board Generated Successfully"
+        }
+    }
 }
 ```
 
 ---
 
-## Supported Sizes
+# Quick Start
 
-| Size | Supported |
-|-------|-----------|
-|4x4|✅|
-|6x6|✅|
-|9x9|✅|
-|10x10|✅|
-|12x12|✅|
-|16x16|✅|
+Using JavaScript
+
+```javascript
+const response = await fetch(
+  "https://vebble-ai-backend.onrender.com/api/games/sudoku-app",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      query: `
+      query {
+        newboard(
+          limit:1,
+          difficulty:"MEDIUM",
+          size:9
+        ){
+          grids{
+            value
+            solution
+            difficulty
+          }
+        }
+      }`
+    }),
+  }
+);
+
+const data = await response.json();
+console.log(data);
+```
 
 ---
 
-## Difficulty
+# Architecture
 
 ```
-EASY
-MEDIUM
-HARD
+Client
+
+      │
+
+      ▼
+
+REST Endpoint
+
+      │
+
+      ▼
+
+Spring Boot
+
+      │
+
+      ▼
+
+GraphQL Resolver
+
+      │
+
+      ▼
+
+Sudoku Engine
+
+      │
+
+      ▼
+
+Validated Puzzle + Solution
+
+      │
+
+      ▼
+
+JSON Response
 ```
 
 ---
 
-## Built With
+# Developer Documentation
 
-- Java
-- Spring Boot
-- GraphQL
-- Maven
-
----
-
-## Use Cases
-
-- Sudoku Games
-- Puzzle Apps
-- Educational Platforms
-- AI Puzzle Training
-- Logic Applications
-
----
-
-## Why PlaySocket?
-
-Unlike traditional Sudoku APIs, PlaySocket focuses on flexibility.
-
-✔ Multiple board dimensions
-
-✔ Dynamic difficulty
-
-✔ Verified solution generation
-
-✔ GraphQL based architecture
-
-✔ Easy integration
-
----
-
-## Documentation
-
-Visit
+📖 Full documentation
 
 https://playsocket.netlify.app/
 
 ---
 
-## Author
+# Built With
 
-Gyanesh Kumar
+* Java
+* Spring Boot
+* GraphQL
+* Maven
 
-Portfolio
+---
 
+# Use Cases
+
+* Sudoku Games
+* Educational Platforms
+* AI Puzzle Training
+* Logic Applications
+* Coding Challenges
+* Puzzle Websites
+* Mobile Games
+
+---
+
+# Roadmap
+
+* [x] Multiple Board Sizes
+* [x] Dynamic Difficulty
+* [x] GraphQL API
+* [x] REST Support
+* [ ] API Key Authentication
+* [ ] Rate Limiting
+* [ ] Multiplayer Sudoku Support
+* [ ] Docker Deployment
+
+---
+
+# Contributing
+
+Contributions, feature requests, and suggestions are welcome.
+
+Feel free to fork the repository and submit a Pull Request.
+
+---
+
+# Author
+
+**Gyanesh Kumar**
+
+🌐 Portfolio
 https://portfolio-v3-two-virid.vercel.app/
 
-GitHub
-
+🐙 GitHub
 https://github.com/Gyaneshkr5009
+
+---
+
+⭐ If you found this project useful, consider giving it a star.
