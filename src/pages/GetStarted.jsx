@@ -1,6 +1,51 @@
+import { useState , useRef } from "react"
 import NevBar from "../component/NevBar" // Double-check if the folder is named 'component' or 'components'
 
 function GetStarted() {
+  const [copiedUrl, setCopiedUrl] = useState(false);
+  const [copiedQuery, setCopiedQuery] = useState(false);
+  const urlRef = useRef(null);
+  const queryRef = useRef(null);
+
+  const handleCopyUrl = async () => {
+    const urlText = urlRef.current ? urlRef.current.innerText : "";
+    try {
+      await navigator.clipboard.writeText(urlText);
+      setCopiedUrl(true);
+      setTimeout(() => setCopiedUrl(false), 2000); 
+
+      if (urlRef.current) {
+        const range = document.createRange();
+        const selection = window.getSelection();
+        range.selectNodeContents(urlRef.current);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+    } catch (err) {
+      console.error("Failed to copy URL: ", err);
+    }
+  };
+
+  const handleCopyQuery = async () => {
+    const queryText = queryRef.current ? queryRef.current.innerText : "";
+    try {
+      await navigator.clipboard.writeText(queryText);
+      setCopiedQuery(true);
+      setTimeout(() => setCopiedQuery(false), 2000); 
+
+      if (queryRef.current) {
+        const range = document.createRange();
+        const selection = window.getSelection();
+        range.selectNodeContents(queryRef.current);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+    } catch (err) {
+      console.error("Failed to copy Query: ", err);
+    }
+  };
+
+
   return (
     <div className='min-h-screen flex flex-col bg-slate-900 text-slate-100 font-sans selection:bg-indigo-500 selection:text-white gap-5 pb-4'>
       <NevBar />
@@ -47,16 +92,35 @@ function GetStarted() {
           </div>
 
           {/* Section 1: Endpoint Details */}
-          <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-4">
+          <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-4 relative group">
             <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
               API Endpoint
             </h4>
-            <p className="bg-slate-950 border border-slate-800 p-2.5 rounded-lg font-mono text-xs md:text-sm break-all text-slate-200">
-              <span className="text-emerald-400 font-bold mr-2">POST</span> 
-              https://vebble-ai-backend.onrender.com/api/games
+            <p 
+              onClick={handleCopyUrl}
+              className="bg-slate-950 border border-slate-800 p-2.5 pr-16 rounded-lg font-mono text-xs md:text-sm break-all text-slate-200 cursor-pointer hover:border-slate-700 transition-colors"
+            >
+              <span className="text-emerald-400 font-bold mr-2 select-none">POST</span> 
+              <span ref={urlRef} className="selection:bg-emerald-500/30 selection:text-emerald-300">
+                https://vebble-ai-backend.onrender.com/api/games
+              </span>
             </p>
+            <button 
+              onClick={handleCopyUrl}
+              className="absolute right-6 bottom-7 p-2 rounded-lg bg-slate-800 text-slate-400 border border-slate-700 hover:text-emerald-400 hover:bg-slate-700/50 hover:border-slate-600 transition-all shadow-md group/btn"
+              title={copiedUrl ? "Copied!" : "Copy to clipboard"}
+            >
+              {copiedUrl ? (
+                <svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4 text-emerald-400 transform scale-110 transition-transform duration-200">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+              ) : (
+                <svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 transition-transform group-hover/btn:scale-105">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m7.5-7.5l3 3m-3-3l-3 3m3-3v11.25A2.25 2.25 0 0116.5 21h-7.5A2.25 2.25 0 016.75 18.75V9a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118.75 9v.75" />
+                </svg>
+              )}
+            </button>
           </div>
-
           {/* Section 2: Client Testing */}
           <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-4">
             <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
@@ -79,7 +143,7 @@ function GetStarted() {
           />
         </div>
       </div>
-      {/* Api Info */}
+      {/* GraphQL Schema Configuration */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-6xl mx-auto px-4 w-full mt-6">
         {/* Column 1: Schema Variables & Raw Format */}
         <div className="flex flex-col gap-4 bg-slate-800/40 border border-slate-700/50 rounded-2xl p-5 backdrop-blur-sm shadow-xl">
@@ -97,22 +161,46 @@ function GetStarted() {
           </div>
 
           {/* Raw GraphQL Query Layout */}
-          <div>
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">GraphQL Core Query</h4>
-            <pre className="bg-slate-900/60 border border-slate-800 p-3 rounded-xl font-mono text-xs text-slate-300 overflow-x-auto whitespace-pre">
+          <div className="relative group">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+              GraphQL Core Query
+            </h4>
+            <pre 
+              ref={queryRef}
+              onClick={handleCopyQuery}
+              className="bg-slate-900/60 border border-slate-800 p-3 pr-16 rounded-xl font-mono text-xs text-slate-300 overflow-x-auto whitespace-pre cursor-pointer hover:border-slate-700 transition-colors selection:bg-emerald-500/20 selection:text-emerald-300"
+            >
               {`query GetSudoku {
-                newSudokuBoard(limit: $limit, difficulty: $difficulty, size: $size) {
-                  grids {
-                    value
-                    solution
-                    difficulty
-                  }
-                  results
-                  message
-                }
-              }`}
+      newSudokuBoard(limit: $limit, difficulty: $difficulty, size: $size) {
+        grids {
+          value
+          solution
+          difficulty
+        }
+        results
+        message
+      }
+    }`}
             </pre>
+            <button 
+              onClick={handleCopyQuery}
+              className="absolute right-3 bottom-3 p-2 rounded-lg bg-slate-800 text-slate-400 border border-slate-700 hover:text-emerald-400 hover:bg-slate-700/50 hover:border-slate-600 transition-all shadow-md group/btn z-10"
+              title={copiedQuery ? "Copied!" : "Copy to clipboard"}
+            >
+              {copiedQuery ? (
+                // Fixed: Restored correct xmlns URL string
+                <svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4 text-emerald-400 transform scale-110 transition-transform duration-200">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+              ) : (
+                // Fixed: Restored correct xmlns URL string
+                <svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 transition-transform group-hover/btn:scale-105">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m7.5-7.5l3 3m-3-3l-3 3m3-3v11.25A2.25 2.25 0 0116.5 21h-7.5A2.25 2.25 0 016.75 18.75V9a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118.75 9v.75" />
+                </svg>
+              )}
+            </button>
           </div>
+
 
           {/* Raw URI Query Format */}
           <div>
