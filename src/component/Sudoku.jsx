@@ -32,13 +32,13 @@ function Sudoku() {
       const cleanSize = (forcedSize && typeof forcedSize === 'number') ? forcedSize : boardSize;
       const difficultyArg = targetDifficulty ? `"${targetDifficulty}"` : 'null';
       
-      const response = await fetch('https://vebble-ai-backend.onrender.com/api/games/sudoku-app', {
+      const response = await fetch('https://vebble-ai-backend.onrender.com/api/games', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             query: `
               query GetNewGame {
-                newboard(limit: 1, difficulty: ${difficultyArg}, size: ${cleanSize}) {
+                newSudokuBoard(limit: 1, difficulty: ${difficultyArg}, size: ${cleanSize}) {
                   grids {
                     value
                     solution
@@ -55,15 +55,15 @@ function Sudoku() {
         throw new Error(result.errors[0].message);
       }
 
-      if (!result.data || !result.data.newboard || !result.data.newboard.grids || result.data.newboard.grids.length === 0) {
+      if (!result.data || !result.data.newSudokuBoard || !result.data.newSudokuBoard.grids || result.data.newSudokuBoard.grids.length === 0) {
         throw new Error("Empty response or missing puzzle fields from server payload.");
       }
 
       const graphQlPayload = result.data;
       
-      const apiGrid = graphQlPayload.newboard.grids[0].value;
-      const apiSolution = graphQlPayload.newboard.grids[0].solution;
-      const apiDifficulty = graphQlPayload.newboard.grids[0].difficulty;
+      const apiGrid = graphQlPayload.newSudokuBoard.grids[0].value;
+      const apiSolution = graphQlPayload.newSudokuBoard.grids[0].solution;
+      const apiDifficulty = graphQlPayload.newSudokuBoard.grids[0].difficulty;
 
       const formattedPuzzle = apiGrid.map(row => 
         row.map(cell => cell === ' ' ? null : cell) // cell having value as ' ' changing to null for new input
@@ -148,6 +148,16 @@ function Sudoku() {
         <div className="w-full flex flex-col justify-between gap-4 bg-slate-900/60 p-4 rounded-xl border border-slate-800 shadow-md shrink-0">
           <div className="flex flex-col items-center sm:items-start bg-slate-950 p-3 rounded-lg border border-slate-800 shadow-sm">
             <span className="text-3xl font-black tracking-widest uppercase text-indigo-500 leading-none">Sudoku</span>
+            <div className='grid  grid-cols-2 w-full'>
+              <div className="flex  items-center gap-1.5 text-indigo-200">
+                <span>📐 Grid Size:</span>
+                <span className="">{boardSize}x{boardSize}</span>
+              </div>
+              <div className="flex items-center gap-1.5 text-indigo-200">
+                <span>🎯 Live Diff:</span>
+                <span className="text-info font-black">{gamedifficulty}</span>
+              </div>
+            </div>
           </div>
 
           <div className="flex flex-col gap-3 bg-slate-950 p-3 rounded-lg border border-slate-800 shadow-sm">

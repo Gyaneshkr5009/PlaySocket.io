@@ -10,14 +10,14 @@ function Working() {
   // Dynamically compile the exact raw string representation showing users what payload passes through
   const generateGraphQLQuery = () => {
     return `query GetNewGame {
-  newboard(limit: 1, difficulty: ${currentDiff}, size: ${currentSize}) {
-    grids {
-      value
-      solution
-      difficulty
-    }
-  }
-}`;
+      newboard(limit: 1, difficulty: ${currentDiff}, size: ${currentSize}) {
+        grids {
+          value
+          solution
+          difficulty
+        }
+      }
+    }`;
   };
 
   return (
@@ -27,7 +27,7 @@ function Working() {
       {/* Ambient background accent filter */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="w-full max-w-7xl mx-auto relative z-10 mt-6">
+      <div className="w-full max-w-7xl ml-2 mr-2 sm:mx-auto relative z-10 mt-6">
         
         {/* Top Info Context Banner (पुराना लेआउट वापस) */}
         <div className="mb-10 text-left border-b border-slate-900 pb-6">
