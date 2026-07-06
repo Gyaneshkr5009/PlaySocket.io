@@ -53,7 +53,7 @@ function GetStarted() {
             </h4>
             <p className="bg-slate-950 border border-slate-800 p-2.5 rounded-lg font-mono text-xs md:text-sm break-all text-slate-200">
               <span className="text-emerald-400 font-bold mr-2">POST</span> 
-              https://vebble-ai-backend.onrender.com/api/games/sudoku-app
+              https://vebble-ai-backend.onrender.com/api/games
             </p>
           </div>
 
@@ -101,7 +101,7 @@ function GetStarted() {
             <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">GraphQL Core Query</h4>
             <pre className="bg-slate-900/60 border border-slate-800 p-3 rounded-xl font-mono text-xs text-slate-300 overflow-x-auto whitespace-pre">
               {`query GetSudoku {
-                newboard(limit: $limit, difficulty: $difficulty, size: $size) {
+                newSudokuBoard(limit: $limit, difficulty: $difficulty, size: $size) {
                   grids {
                     value
                     solution
@@ -130,7 +130,7 @@ function GetStarted() {
             <p className="text-slate-400 text-xs mb-4">Copy and execute this script inside your application to fetch a board setup dynamically:</p>
             
             <pre className="bg-slate-950 border border-slate-800 p-4 rounded-xl font-mono text-xs text-emerald-400 overflow-x-auto whitespace-pre leading-relaxed max-h-[380px]">
-              {`const response = await fetch('https://vebble-ai-backend.onrender.com/api/games/sudoku-app', {
+              {`const response = await fetch('https://vebble-ai-backend.onrender.com/api/games', {
                 method: 'POST',
                 headers: { 
                   'Content-Type': 'application/json' 
@@ -138,7 +138,7 @@ function GetStarted() {
                 body: JSON.stringify({
                   query: \`
                     query GetNewGame {
-                      newboard(
+                      newSudokuBoard(
                         limit: 1, 
                         difficulty: "\${difficultyArg}", 
                         size: \${cleanSize}
@@ -148,6 +148,8 @@ function GetStarted() {
                           solution
                           difficulty
                         }
+                          results
+                          message
                       }
                     }
                   \`
