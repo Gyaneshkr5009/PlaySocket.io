@@ -1,5 +1,5 @@
 import { useState , useRef } from "react"
-import NevBar from "../component/NevBar" // Double-check if the folder is named 'component' or 'components'
+import NevBar from "../../component/NevBar" // Double-check if the folder is named 'component' or 'components'
 
 function GetStarted() {
   const [copiedUrl, setCopiedUrl] = useState(false);

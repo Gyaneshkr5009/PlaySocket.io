@@ -1,11 +1,17 @@
 import HomePage from "./HomePage";
-import Working from "./Working";
-import GetStarted from "./GetStarted";
+import PlayGround from "./PlayGround";
+import SudokuDocs from "./games/SudokuDocs";
 import About from "./About";
+import Roadmap from "./RoadMap";
+import Docs from "./docs";
+import SchulteDocs from "./games/SchulteDocs";
 
 export{
+    SchulteDocs,
+    Docs,
     HomePage,
-    Working,
-    GetStarted,
+    PlayGround,
+    SudokuDocs,
+    Roadmap,
     About
 }
