@@ -15,9 +15,10 @@ function GetStarted() {
       setTimeout(() => setCopiedUrl(false), 2000); 
 
       if (urlRef.current) {
+        //to declare range of our window which we need to copy
         const range = document.createRange();
-        const selection = window.getSelection();
-        range.selectNodeContents(urlRef.current);
+        const selection = window.getSelection(); // select the whole thing within the range
+        range.selectNodeContents(urlRef.current); // set sizing of our range
         selection.removeAllRanges();
         selection.addRange(range);
       }
