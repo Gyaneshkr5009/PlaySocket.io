@@ -1,11 +1,11 @@
 # 🧩 PlaySocket
 
 <p align="center">
-  <strong>A high-performance Sudoku Generation Engine built with Spring Boot & GraphQL.</strong>
+  <strong>A high-performance Puzzle Generation Engine built with Spring Boot & GraphQL.</strong>
 </p>
 
 <p align="center">
-Generate fully configurable Sudoku puzzles with multiple board sizes, dynamic difficulty levels, verified solutions, and developer-friendly APIs.
+Generate Sudoku boards, Schulte Tables, and future puzzle games through a single GraphQL API with developer-friendly endpoints.
 </p>
 
 <p align="center">
@@ -22,17 +22,18 @@ Generate fully configurable Sudoku puzzles with multiple board sizes, dynamic di
 
 # ✨ Why PlaySocket?
 
-Most Sudoku APIs only generate a fixed 9×9 board.
+Most puzzle APIs focus on a single game.
 
-PlaySocket was designed to be **a configurable Sudoku engine**, giving developers complete control over:
+**PlaySocket** is designed as a scalable **Puzzle Generation Engine**, allowing developers to integrate multiple puzzle types through one API while keeping the implementation simple and extensible.
 
-* Board Size
-* Difficulty
-* Puzzle Generation
-* Verified Solutions
-* GraphQL Integration
+Current supported games include:
 
-Whether you're building a mobile game, educational platform, puzzle website, or AI application, PlaySocket provides a simple yet powerful API for Sudoku generation.
+* 🧩 Sudoku
+* 🔢 Schulte Table
+
+Future games can be added without changing the public API structure.
+
+Whether you're building a mobile game, educational platform, AI application, coding challenge website, or puzzle portal, PlaySocket provides a clean and flexible backend.
 
 ---
 
@@ -41,17 +42,28 @@ Whether you're building a mobile game, educational platform, puzzle website, or 
 | Feature                        | Supported |
 | ------------------------------ | --------- |
 | GraphQL API                    | ✅         |
-| Spring Boot Backend            | ✅         |
-| Multiple Board Sizes           | ✅         |
-| Dynamic Difficulty             | ✅         |
-| Verified Solutions             | ✅         |
 | REST Endpoint                  | ✅         |
+| Spring Boot Backend            | ✅         |
+| Sudoku Generator               | ✅         |
+| Schulte Table Generator        | ✅         |
+| Multiple Sudoku Board Sizes    | ✅         |
+| Dynamic Sudoku Difficulty      | ✅         |
+| Verified Sudoku Solutions      | ✅         |
 | Developer Documentation        | ✅         |
 | Ready for Frontend Integration | ✅         |
 
 ---
 
-# Supported Board Sizes
+# 🎮 Supported Games
+
+| Game          | Status |
+| ------------- | ------ |
+| Sudoku        | ✅      |
+| Schulte Table | ✅      |
+
+---
+
+# 🧩 Sudoku Board Sizes
 
 | Size  | Status |
 | ----- | ------ |
@@ -64,7 +76,7 @@ Whether you're building a mobile game, educational platform, puzzle website, or 
 
 ---
 
-# Difficulty Levels
+# 🎯 Sudoku Difficulty Levels
 
 | Difficulty |
 | ---------- |
@@ -74,20 +86,58 @@ Whether you're building a mobile game, educational platform, puzzle website, or 
 
 ---
 
-# API Endpoint
+# 🌐 API Endpoint
 
 ```http
-POST https://vebble-ai-backend.onrender.com/api/games/sudoku-app
+POST https://vebble-ai-backend.onrender.com/api/games
 ```
 
 ---
 
-# GraphQL Query
+# 📌 GraphQL Schema
 
 ```graphql
-query GetSudoku {
+scalar Matrix
 
-  newboard(
+type Query {
+
+    newSudokuBoard(
+        limit: Int = 1,
+        difficulty: String = null,
+        size: Int = 9
+    ): BoardResponse
+
+    newSchulteTable(
+        size: Int = 5
+    ): SchulteTable
+}
+
+type SchulteTable {
+    schulteBoard: [[Int]]
+    message: String
+}
+
+type BoardResponse {
+    grids: [Grid]
+    results: Int
+    message: String
+}
+
+type Grid {
+    value: Matrix
+    solution: Matrix
+    difficulty: String
+}
+```
+
+---
+
+# 📘 Generate Sudoku
+
+```graphql
+query {
+
+  newSudokuBoard(
       limit:1,
       difficulty:"MEDIUM",
       size:9
@@ -111,35 +161,72 @@ query GetSudoku {
 
 ---
 
-# Example Response
+# Sudoku Response
 
 ```json
 {
-    "data": {
-        "newboard": {
-            "grids": [
-                {
-                    "value": "...",
-                    "solution": "...",
-                    "difficulty": "MEDIUM"
-                }
-            ],
-            "results": 1,
-            "message": "Board Generated Successfully"
+  "data": {
+    "newSudokuBoard": {
+      "grids": [
+        {
+          "value": "...",
+          "solution": "...",
+          "difficulty": "MEDIUM"
         }
+      ],
+      "results": 1,
+      "message": "Board Generated Successfully"
     }
+  }
 }
 ```
 
 ---
 
-# Quick Start
+# 🔢 Generate Schulte Table
 
-Using JavaScript
+```graphql
+query {
+
+  newSchulteTable(size:5){
+
+      schulteBoard
+
+      message
+
+  }
+
+}
+```
+
+---
+
+# Schulte Table Response
+
+```json
+{
+  "data": {
+    "newSchulteTable": {
+      "schulteBoard": [
+        [17, 3, 11, 24, 7],
+        [5, 20, 1, 14, 22],
+        [10, 18, 8, 25, 12],
+        [16, 2, 23, 6, 15],
+        [19, 13, 9, 4, 21]
+      ],
+      "message": "Schulte Table Generated Successfully"
+    }
+  }
+}
+```
+
+---
+
+# ⚡ Quick Start
 
 ```javascript
 const response = await fetch(
-  "https://vebble-ai-backend.onrender.com/api/games/sudoku-app",
+  "https://vebble-ai-backend.onrender.com/api/games",
   {
     method: "POST",
     headers: {
@@ -148,31 +235,36 @@ const response = await fetch(
     body: JSON.stringify({
       query: `
       query {
-        newboard(
+
+        newSudokuBoard(
           limit:1,
           difficulty:"MEDIUM",
           size:9
         ){
+
           grids{
             value
             solution
             difficulty
           }
+
         }
+
       }`
     }),
   }
 );
 
 const data = await response.json();
+
 console.log(data);
 ```
 
 ---
 
-# Architecture
+# 🏗 Architecture
 
-```
+```text
 Client
 
       │
@@ -197,32 +289,33 @@ GraphQL Resolver
 
       ▼
 
-Sudoku Engine
+Puzzle Generation Engine
 
       │
 
-      ▼
+      ├───────────────┐
+      ▼               ▼
 
-Validated Puzzle + Solution
+ Sudoku Engine   Schulte Engine
 
-      │
+      │               │
+      └───────┬───────┘
+              ▼
 
-      ▼
-
-JSON Response
+        JSON Response
 ```
 
 ---
 
-# Developer Documentation
+# 📖 Developer Documentation
 
-📖 Full documentation
+Full documentation:
 
 https://playsocket.netlify.app/
 
 ---
 
-# Built With
+# 🛠 Built With
 
 * Java
 * Spring Boot
@@ -231,32 +324,37 @@ https://playsocket.netlify.app/
 
 ---
 
-# Use Cases
+# 💡 Use Cases
 
-* Sudoku Games
-* Educational Platforms
-* AI Puzzle Training
-* Logic Applications
-* Coding Challenges
 * Puzzle Websites
 * Mobile Games
+* Educational Platforms
+* AI Training Applications
+* Cognitive Assessment Tools
+* Logic Games
+* Coding Challenges
 
 ---
 
-# Roadmap
+# 🗺 Roadmap
 
-* [x] Multiple Board Sizes
+* [x] Sudoku Generator
+* [x] Schulte Table Generator
+* [x] Multiple Sudoku Board Sizes
 * [x] Dynamic Difficulty
 * [x] GraphQL API
 * [x] REST Support
 * [ ] API Key Authentication
 * [ ] Rate Limiting
-* [ ] Multiplayer Sudoku Support
+* [ ] Memory Games
+* [ ] Sliding Puzzle
+* [ ] Crossword Generator
+* [ ] Multiplayer Puzzle Support
 * [ ] Docker Deployment
 
 ---
 
-# Contributing
+# 🤝 Contributing
 
 Contributions, feature requests, and suggestions are welcome.
 
@@ -264,16 +362,18 @@ Feel free to fork the repository and submit a Pull Request.
 
 ---
 
-# Author
+# 👨‍💻 Author
 
 **Gyanesh Kumar**
 
 🌐 Portfolio
+
 https://portfolio-v3-two-virid.vercel.app/
 
 🐙 GitHub
+
 https://github.com/Gyaneshkr5009
 
 ---
 
-⭐ If you found this project useful, consider giving it a star.
+⭐ If you found PlaySocket useful, consider giving the repository a star!
