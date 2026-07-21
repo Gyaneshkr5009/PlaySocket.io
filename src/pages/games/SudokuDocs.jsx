@@ -207,7 +207,7 @@ function GetStarted() {
           <div>
             <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Raw GET/URI Equivalent</h4>
             <p className="bg-slate-950 border border-slate-800 p-2.5 rounded-lg font-mono text-[11px] break-all text-slate-400">
-              <span className="text-pink-400 font-medium">?query=</span>{`{newboard(limit:5){grids{value,solution,difficulty},results,message}}`}
+              <span className="text-pink-400 font-medium">?query=</span>{`{newSudokuBoard(limit:5){grids{value,solution,difficulty},results,message}}`}
             </p>
           </div>
         </div>
