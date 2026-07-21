@@ -137,9 +137,9 @@ function SchulteDocs() {
         {/* Right Side: Responsive Image Wrapper */}
         <div className="flex justify-center items-center h-full min-h-[300px]">
           <img 
-            src="/features.svg" 
+            src="/SchulteTable.svg" 
             alt="Vebble Games Microservice Infrastructure Architecture" 
-            className="w-full max-w-[280px] sm:max-w-[360px] md:max-w-[450px] lg:max-w-[520px] h-auto object-contain filter drop-shadow-[0_15px_30px_rgba(79,70,229,0.2)] select-none pointer-events-none mx-auto"
+            className="w-full h-auto object-contain filter drop-shadow-[0_15px_30px_rgba(79,70,229,0.2)] select-none pointer-events-none mx-auto"
           />
         </div>
       </div>
